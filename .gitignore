@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+_site/
+.openai/
+preview*.jpg
+preview*.png
+Тропа троллей.html
+Тропа троллей — вектор.html
+# Older illustration drafts, unused by the current game.
+dist/assets/fox-animation.png
+dist/assets/living-sprites.png
+dist/assets/rabbit-directions.png

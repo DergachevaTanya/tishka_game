@@ -1,0 +1,10 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const get=name=>readFile(new URL(name,import.meta.url),'utf8');
+const files=['swamp-watercolor.png','storybook-sprites.png','pond-fish.png','moon-river.png','storybook-cast.png','heart-watercolor.png','charm-icons.png'];
+const embedded={};for(const name of files)embedded[name]='data:image/png;base64,'+(await readFile(new URL('dist/assets/'+name,import.meta.url))).toString('base64');
+const strip=s=>s.replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
+let js='const embeddedAssets='+JSON.stringify(embedded)+';\nfunction asset(name){return embeddedAssets[name]}\n';
+for(const module of ['engine','motion','story','icons','scene','audio','speech','tour','prologue','app'])js+=strip(await get('dist/'+module+'.mjs'))+'\n';
+let html=await get('dist/index.html');html=html.replace('<link rel="stylesheet" href="style.css">','<style>'+await get('dist/style.css')+'</style>');html=html.replace('<script type="module" src="app.mjs"></script>','<script type="module">'+js+'</script>');
+await writeFile(new URL('Тропа троллей.html',import.meta.url),html);
+console.log('Собрана сказка: семь встроенных PNG, без сервера и установки.');

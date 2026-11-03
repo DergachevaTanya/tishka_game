@@ -1,0 +1,13 @@
+{
+  "name": "tishkina-tropa",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test engine.test.mjs story.test.mjs motion.test.mjs",
+    "build": "node build-pages.mjs",
+    "build:standalone": "node build-standalone.mjs",
+    "preview": "python3 -m http.server 4173 --directory _site"
+  }
+}
